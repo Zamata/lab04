@@ -26,12 +26,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(0xfff9e37c)
                 ) {
-                    CheckBoxComponent()
+                    CheckBoxComponent() // Mostrar CheckBox
+                    AlertDialogComponent() // Mostrar AlertDialog
                 }
             }
         }
     }
 }
+
 
 // Componente de CheckBox
 @Composable
@@ -50,6 +52,36 @@ fun CheckBoxComponent() {
         Text(text = "Aceptar Términos y Condiciones")
     }
 }
+
+// Componente de AlertDialog
+@Composable
+fun AlertDialogComponent() {
+    var showDialog by remember { mutableStateOf(false) } // Estado para el AlertDialog
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Button(onClick = { showDialog = true }) {
+            Text(text = "Mostrar Diálogo")
+        }
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text(text = "Confirmación") },
+                text = { Text(text = "¿Estás seguro de realizar esta acción?") },
+                confirmButton = {
+                    Button(onClick = { showDialog = false }) {
+                        Text(text = "Aceptar")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = { showDialog = false }) {
+                        Text(text = "Cancelar")
+                    }
+                }
+            )
+        }
+    }
+}
+
 
 // Función Preview que los muestra uno por uno
 @Preview(showBackground = true)
