@@ -28,12 +28,12 @@ class MainActivity : ComponentActivity() {
                 ) {
                     CheckBoxComponent() // Mostrar CheckBox
                     AlertDialogComponent() // Mostrar AlertDialog
+                    SliderComponent() // Mostrar Slider
                 }
             }
         }
     }
 }
-
 
 // Componente de CheckBox
 @Composable
@@ -82,6 +82,20 @@ fun AlertDialogComponent() {
     }
 }
 
+// Componente de Slider
+@Composable
+fun SliderComponent() {
+    var sliderPosition by remember { mutableStateOf(0.5f) } // Valor inicial del slider
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "Selecciona un valor: ${sliderPosition * 100}", fontSize = 16.sp)
+        Slider(
+            value = sliderPosition,
+            onValueChange = { sliderPosition = it },
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+    }
+}
 
 // Función Preview que los muestra uno por uno
 @Preview(showBackground = true)
@@ -95,6 +109,8 @@ fun PreviewBusinessCard() {
         ) {
             //BusinessCard()
             CheckBoxComponent() // Mostrar CheckBox
+            AlertDialogComponent() // Mostrar AlertDialog
+            SliderComponent() // Mostrar Slider
         }
     }
 }
