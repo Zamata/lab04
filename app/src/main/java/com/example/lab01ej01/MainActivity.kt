@@ -48,7 +48,7 @@ fun CheckBoxComponent() {
         Checkbox(
             checked = isChecked,
             onCheckedChange = { isChecked = it },
-            colors = CheckboxDefaults.colors(checkedColor = Color.Green)
+            colors = CheckboxDefaults.colors(checkedColor = Color.Red)
         )
         Text(text = "Aceptar Términos y Condiciones")
     }
