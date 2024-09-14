@@ -89,11 +89,11 @@ fun SliderComponent() {
     var sliderPosition by remember { mutableStateOf(0.5f) } // Valor inicial del slider
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Selecciona un valor: ${sliderPosition * 100}", fontSize = 16.sp)
+        Text(text = "Selecciona un valor: ${sliderPosition * 100}", fontSize = 32.sp)
         Slider(
             value = sliderPosition,
             onValueChange = { sliderPosition = it },
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 13.dp)
         )
     }
 }
