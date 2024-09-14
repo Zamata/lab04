@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
                     CheckBoxComponent() // Mostrar CheckBox
                     AlertDialogComponent() // Mostrar AlertDialog
                     SliderComponent() // Mostrar Slider
+                    ViewHolaCurso()
                 }
             }
         }
@@ -93,6 +94,27 @@ fun SliderComponent() {
             value = sliderPosition,
             onValueChange = { sliderPosition = it },
             modifier = Modifier.padding(horizontal = 16.dp)
+        )
+    }
+}
+
+@Composable
+fun ViewHolaCurso() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth() // Cambiado de fillMaxWith() a fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Welcome to the Course!",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold // Cambiado de FontWeigh a FontWeight
+        )
+        Spacer(modifier = Modifier.height(16.dp)) // Cambiado de heigh() a height()
+        Text(
+            text = "Hello, Student!",
+            fontSize = 20.sp // Cambiado de 20.xD a 20.sp
         )
     }
 }
