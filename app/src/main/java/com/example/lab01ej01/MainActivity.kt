@@ -45,7 +45,7 @@ fun UserPost(modifier: Modifier = Modifier) {
         modifier = modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Editar Publicación",
+        Text(text = "RElease Pulbicacion USer",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color= Color.White)
