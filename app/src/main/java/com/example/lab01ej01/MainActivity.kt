@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.lab01ej01.ui.theme.Lab01Ej01Theme
 
 class MainActivity : ComponentActivity() {
@@ -24,58 +25,77 @@ class MainActivity : ComponentActivity() {
             Lab01Ej01Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color(0xfff9e37c)
+                    color = Color(0xffB9A7FC)
                 ) {
-                    CheckBoxComponent() // Mostrar CheckBox
-                    AlertDialogComponent() // Mostrar AlertDialog
-                    SliderComponent() // Mostrar Slider
-                    ViewHolaCurso()
+                    UserPost()
                 }
             }
         }
     }
 }
 
-// Componente de CheckBox
 @Composable
-fun CheckBoxComponent() {
-    var isChecked by remember { mutableStateOf(false) }
+fun UserPost(modifier: Modifier = Modifier) {
+    var title by rememberSaveable { mutableStateOf("") }
+    var content by rememberSaveable { mutableStateOf("") }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    var postConfirmed by rememberSaveable { mutableStateOf(false) }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    Column(
+        modifier = modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Checkbox(
-            checked = isChecked,
-            onCheckedChange = { isChecked = it },
-            colors = CheckboxDefaults.colors(checkedColor = Color.Red)
+        Text(text = "Editar Publicación",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color= Color.White)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(
+            value = title,
+            onValueChange = { title = it },
+            label = { Text("Título") }
         )
-        Text(text = "Aceptar Términos y Condiciones")
-    }
-}
+        Spacer(modifier = Modifier.height(8.dp))
 
-// Componente de AlertDialog
-@Composable
-fun AlertDialogComponent() {
-    var showDialog by remember { mutableStateOf(false) } // Estado para el AlertDialog
+        TextField(
+            value = content,
+            onValueChange = { content = it },
+            label = { Text("Contenido") },
+            modifier = Modifier.height(50.dp)
+        )
+        Spacer(modifier = Modifier.height(2.dp))
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = { showDialog = true }) {
-            Text(text = "Mostrar Diálogo")
+            Text("Publicar Post")
         }
+
+        if (postConfirmed) {
+            Text(
+                text = "Publicación Realizada!",
+                color = Color.Gray,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
         if (showDialog) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
                 title = { Text(text = "Confirmación") },
-                text = { Text(text = "¿Estás seguro de realizar esta acción?") },
+                text = { Text(text = "¿Estás seguro de publicar la siguiente publicación?") },
                 confirmButton = {
-                    Button(onClick = { showDialog = false }) {
-                        Text(text = "Aceptar")
+                    Button(onClick = {
+                        postConfirmed = true
+                        showDialog = false
+                    }) {
+                        Text("Confirmar")
                     }
                 },
                 dismissButton = {
                     Button(onClick = { showDialog = false }) {
-                        Text(text = "Cancelar")
+                        Text("Cancelar")
                     }
                 }
             )
@@ -83,56 +103,11 @@ fun AlertDialogComponent() {
     }
 }
 
-// Componente de Slider
-@Composable
-fun SliderComponent() {
-    var sliderPosition by remember { mutableStateOf(0.5f) } // Valor inicial del slider
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Selecciona un valor: ${sliderPosition * 100}", fontSize = 32.sp)
-        Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            modifier = Modifier.padding(horizontal = 13.dp)
-        )
-    }
-}
-
-@Composable
-fun ViewHolaCurso() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth() // Cambiado de fillMaxWith() a fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Welcome to the Course!",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold // Cambiado de FontWeigh a FontWeight
-        )
-        Spacer(modifier = Modifier.height(16.dp)) // Cambiado de heigh() a height()
-        Text(
-            text = "Hello, Student!",
-            fontSize = 20.sp // Cambiado de 20.xD a 20.sp
-        )
-    }
-}
-
-// Función Preview que los muestra uno por uno
 @Preview(showBackground = true)
 @Composable
-fun PreviewBusinessCard() {
+fun PreviewUserPostScreen() {
     Lab01Ej01Theme {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            //BusinessCard()
-            CheckBoxComponent() // Mostrar CheckBox
-            AlertDialogComponent() // Mostrar AlertDialog
-            SliderComponent() // Mostrar Slider
-        }
+        UserPost()
     }
 }
